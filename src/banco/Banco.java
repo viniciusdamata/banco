@@ -63,10 +63,11 @@ public class Banco {
     }
     public void cadastraConta(int numAgencia, int conta, int cpf){
         /*Continuar daqui*/
-        for (int i = 0; i < contaVet.length; i++) {
+        //instanciar um objeto do tipo conta
+        //inicializar os atributos do objeto com os parametros desse metodo
+        //implementar um contador
             
-            
-        }
+        
     }
     public static void main(String[] args) {
         Banco banco = new Banco(Input.readInt("Digite o numero de clientes: "),

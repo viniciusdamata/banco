@@ -6,7 +6,7 @@ public class cliente {
     public String nome;
     public int telefone;
     public int cpf;
-    public int cpfIndicou;
+    public int cpfIndicou; 
 
     public cliente() {
     }
