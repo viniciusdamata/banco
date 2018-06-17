@@ -6,11 +6,6 @@ public class agencia {
     public agencia() {
     }
 
-    public agencia(int numero, String endereco) {
-        this.numero = numero;
-        this.endereco = endereco;
-    }
-
     public int getNumero() {
         return numero;
     }
@@ -25,6 +20,12 @@ public class agencia {
 
     public void setEndereco() {
         endereco = Input.readString("Digite o endereco da agencia: ");
+    }
+    public void printAgencia(){
+        System.out.println("Numero da agencia: "+getNumero());
+        System.out.println("Endereco da agencia: "+getEndereco());
+        System.out.println("-------------------------------------\n");
+       
     }
     
     

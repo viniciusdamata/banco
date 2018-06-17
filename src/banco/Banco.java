@@ -5,6 +5,9 @@ public class Banco {
     public agencia[] agenciaVet; 
     public cliente[] clienteVet; 
     public conta[] contaVet; 
+    public int indiceConta = 0;
+    public int indiceCliente = 0;
+    public int indiceAgencia = 0;
         
     
     public Banco(int x, int y, int z){   
@@ -14,65 +17,151 @@ public class Banco {
     
     }
     public void cadastrarAgencia(){
-        for (int i = 0; i < agenciaVet.length; i++) {
-            agenciaVet[i] = new agencia();
-            agenciaVet[i].setEndereco();
-            agenciaVet[i].setNumero();
-            
-        }
+        if(indiceAgencia > agenciaVet.length-1){
+            System.out.println("Numero maximo de agencias atingido! \n");
+        }else{
+            agenciaVet[indiceAgencia] = new agencia();
+            agenciaVet[indiceAgencia].setEndereco();
+            agenciaVet[indiceAgencia].setNumero();
+            System.out.println("Agencia Cadastrada! ");
+            agenciaVet[indiceAgencia].printAgencia();
+            indiceAgencia++;
+        }   
+        
     }
     public void cadastrarCliente(){
+          if(indiceCliente > contaVet.length-1){
+              System.out.println("Numero maximo de clientes atingido! \n");
+          }else{
+            clienteVet[indiceCliente] = new cliente();
+            clienteVet[indiceCliente].setNome();
+            clienteVet[indiceCliente].setCpf();
+            clienteVet[indiceCliente].setTelefone();
+            clienteVet[indiceCliente].setCpfIndicou();
+            System.out.println("Cliente Cadastrado! ");
+            clienteVet[indiceCliente].printCliente();
+            indiceCliente++;
+          }
+     
+    }
+    public int verificaAgencia(int numAgencia){
+        for (int i = 0; i < agenciaVet.length; i++) {
+            if(numAgencia == agenciaVet[i].getNumero()){
+                return i;
+            }
+            
+        }
+        return -1;
+    }
+    public int verificaCliente(int cpf){
         for (int i = 0; i < clienteVet.length; i++) {
-            clienteVet[i] = new cliente();
-            clienteVet[i].setNome();
-            clienteVet[i].setCpf();
-            clienteVet[i].setTelefone();
-            clienteVet[i].setCpfIndicou();
-        }
-    }
-    public boolean verificaAgencia(int numAgencia, int i){
-        if(i == 0 && numAgencia != agenciaVet[i].getNumero()){
-          return false;
-        }
-        else if(numAgencia == agenciaVet[i].getNumero()){
-          return true;   
-        }
-            return verificaAgencia(numAgencia, i-1);
-    }
-    public boolean verificaCliente(int cpf, int i){
-        if(i == 0 && cpf != clienteVet[i].getCpf()){
-            return false;
-        }
-        else if(cpf == clienteVet[i].getCpf()){
-            return true;
-        }
-            return verificaCliente(cpf, i-1);
-    }
-    public void verificarDados(int numAgencia, int conta, int cpf){
-            if(verificaAgencia(numAgencia, agenciaVet.length-1)){
-                if(verificaCliente(cpf, agenciaVet.length-1)){
-                    cadastraConta(numAgencia, conta, cpf);
-                }
-                else{
-                    System.out.println("Cliente nao encontrado! tente novamente");
-                }
+            if(cpf == clienteVet[i].getCpf()){
+                return i;
             }
-            else{
-                System.out.println("Agencia nao encontrada! tente novamente");
-            }
+            
+        }
+        return -1;
+    
     }
-    public void cadastraConta(int numAgencia, int conta, int cpf){
-        /*Continuar daqui*/
+    public void cadastraConta(int numero, int validaAgencia, int validaCliente){
         //instanciar um objeto do tipo conta
         //inicializar os atributos do objeto com os parametros desse metodo
         //implementar um contador
+        
+        if(validaAgencia != -1 && validaCliente != -1){
+            if(indiceConta > contaVet.length-1){
+                System.out.println("Numero maximo de contas atingido! \n");
+            }else{
+                contaVet[indiceConta] = new conta(numero, agenciaVet[validaAgencia], clienteVet[validaCliente]);
+                System.out.println("Conta Cadastrada com sucesso! ");
+                contaVet[indiceConta].printConta();
+                indiceConta++;
+            }
+        }else{
+           System.out.println("Agencia ou cliente nao encontrados! ");
+        }
+       
+    }
+    public void listarContaAgencia(int numAgencia){
+        for (int i = 0; i < contaVet.length; i++) {
+            if(contaVet[i].getAssociada().getNumero() == numAgencia){
+               System.out.println("Nome do cliente: "+contaVet[i].getClienteConta().getNome());
+               System.out.println("Numero da conta; "+contaVet[i].getNumero());
+            }
+        }
+    }
+    public void listarContaCliente(int cpf){
+        for (int i = 0; i < contaVet.length; i++) {
+           if(cpf == contaVet[i].getClienteConta().getCpf()){
+               System.out.println("Numero da agencia: "+contaVet[i].getAssociada().getNumero());
+               System.out.println("Numero da conta: "+contaVet[i].getNumero());
+           }
             
+        }
         
     }
+    public void listarClienteAgencia(int numAgencia){
+        for (int i = 0; i < contaVet.length; i++) {
+               
+            if(numAgencia == contaVet[i].getAssociada().getNumero()){
+                System.out.println("Nome do cliente: "+contaVet[i].getClienteConta().getNome());
+                System.out.println("Telefone do cliente: "+contaVet[i].getClienteConta().getTelefone());
+            }
+                
+                
+            
+        }
+    
+    }
     public static void main(String[] args) {
-        Banco banco = new Banco(Input.readInt("Digite o numero de clientes: "),
-        Input.readInt("Digite o numero de agencias: "),Input.readInt("Digite o numero de contas: "));
-       }
+        int x, y, z;
+        x = Input.readInt("Digite o numero de clientes: ");
+        y = Input.readInt("Digite o numero de agencias: ");
+        z = Input.readInt("Digite o numero de contas: ");
+        Banco banco = new Banco(x, y, z);
+       
+        /*Variaveis do switch*/
+        char op;
+        int numConta, numAgencia, numCpf;
+        
+        op = Input.readChar("Digite a opcao desejada:\na - Cadastrar agencia\nb - Cadastrar cliente\nc - Cadastrar Conta\nd - Listar contas por agencia\ne "
+                + "- Listar contas por cliente\nf - Listar clientes por agencia\ng - Sair\n");
+        while(op != 'g'){
+            switch (op){
+                case 'a':
+                    banco.cadastrarAgencia();
+                break;
+                case 'b':
+                    banco.cadastrarCliente();
+                break;
+                case 'c':
+                    numConta = Input.readInt("Digite o numero da Conta: ");
+                    numAgencia = Input.readInt("Digite o numero da Agencia: ");
+                    numCpf = Input.readInt("Digite o numero do cpf: ");
+                    banco.cadastraConta(numConta, banco.verificaAgencia(numAgencia), banco.verificaCliente(numCpf));
+                break;
+                case 'd':
+                    numAgencia = Input.readInt("Digite o numero da agencia: ");
+                    banco.listarContaAgencia(numAgencia);
+                break;
+                case 'e':
+                    numCpf = Input.readInt("Digite o cpf do cliente: ");
+                    banco.listarContaCliente(numCpf);
+                break;
+                case 'f':
+                    numAgencia = Input.readInt("Digite o numero da agencia: ");
+                    banco.listarClienteAgencia(numAgencia);
+                break;
+                default:
+                    System.out.println("Opcao invalida, tente novamente!\n");
+                break;
+            }
+            op = Input.readChar("Digite a opcao desejada:\na - Cadastrar agencia\nb - Cadastrar cliente\nc - Cadastrar Conta\nd - Listar contas por agencia\ne "
+                + "- Listar contas por cliente\nf - Listar clientes por agencia\ng - Sair\n\n");
+            System.out.println("__________________________________________________________________");
+        
+        }
+    }
     
         
      

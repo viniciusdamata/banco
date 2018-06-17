@@ -49,6 +49,13 @@ public class cliente {
     public void setCpfIndicou() {
         cpfIndicou = Input.readInt("Digite o cpf de quem indicou o cliente, se houver: ");
     }
+    public void printCliente(){
+        System.out.println("Nome do cliente: "+getNome());
+        System.out.println("Telefone do cliente: "+getTelefone());
+        System.out.println("cpf do cliente: "+getCpf());
+        System.out.println("cpf de quem indicou: "+getCpfIndicou());
+        System.out.println("--------------------------------------\n");
+    }
     
     
     
