@@ -45,21 +45,29 @@ public class Banco {
      
     }
     public int verificaAgencia(int numAgencia){
+        if(indiceAgencia == 0){
+            return -1;
+        }
         for (int i = 0; i < agenciaVet.length; i++) {
-            if(numAgencia == agenciaVet[i].getNumero()){
+            if(numAgencia == agenciaVet[i].getNumero() && agenciaVet[i] != null){
                 return i;
             }
             
         }
+        
         return -1;
     }
     public int verificaCliente(int cpf){
+        if(indiceCliente == 0){
+            return -1;
+        }
         for (int i = 0; i < clienteVet.length; i++) {
-            if(cpf == clienteVet[i].getCpf()){
+            if(cpf == clienteVet[i].getCpf() && clienteVet[i] != null){
                 return i;
             }
             
         }
+        
         return -1;
     
     }
@@ -83,33 +91,44 @@ public class Banco {
        
     }
     public void listarContaAgencia(int numAgencia){
-        for (int i = 0; i < contaVet.length; i++) {
-            if(contaVet[i].getAssociada().getNumero() == numAgencia){
-               System.out.println("Nome do cliente: "+contaVet[i].getClienteConta().getNome());
-               System.out.println("Numero da conta; "+contaVet[i].getNumero());
+        if(indiceConta > 0){
+            for (int i = 0; i < contaVet.length; i++) {
+                if(contaVet[i].getAssociada().getNumero() == numAgencia){
+                   System.out.println("Nome do cliente: "+contaVet[i].getClienteConta().getNome());
+                   System.out.println("Numero da conta; "+contaVet[i].getNumero());
+                }
             }
+        }else{
+            System.out.println("Nenhuma conta cadastrada! ");
         }
     }
     public void listarContaCliente(int cpf){
-        for (int i = 0; i < contaVet.length; i++) {
-           if(cpf == contaVet[i].getClienteConta().getCpf()){
-               System.out.println("Numero da agencia: "+contaVet[i].getAssociada().getNumero());
-               System.out.println("Numero da conta: "+contaVet[i].getNumero());
-           }
-            
+        if(indiceConta > 0){
+            for (int i = 0; i < contaVet.length; i++) {
+                if(cpf == contaVet[i].getClienteConta().getCpf()){
+                System.out.println("Numero da agencia: "+contaVet[i].getAssociada().getNumero());
+                System.out.println("Numero da conta: "+contaVet[i].getNumero());
+                }
+            }
+        }else{
+            System.out.println("Nenhuma conta cadastrada! ");
         }
         
     }
     public void listarClienteAgencia(int numAgencia){
-        for (int i = 0; i < contaVet.length; i++) {
+        if(indiceConta > 0){
+            for (int i = 0; i < contaVet.length; i++) {
                
-            if(numAgencia == contaVet[i].getAssociada().getNumero()){
-                System.out.println("Nome do cliente: "+contaVet[i].getClienteConta().getNome());
-                System.out.println("Telefone do cliente: "+contaVet[i].getClienteConta().getTelefone());
-            }
+                if(numAgencia == contaVet[i].getAssociada().getNumero()){
+                    System.out.println("Nome do cliente: "+contaVet[i].getClienteConta().getNome());
+                    System.out.println("Telefone do cliente: "+contaVet[i].getClienteConta().getTelefone());
+                }
                 
                 
             
+            }
+        }else{
+            System.out.println("Nenhuma conta cadastrada! ");
         }
     
     }
@@ -124,7 +143,7 @@ public class Banco {
         char op;
         int numConta, numAgencia, numCpf;
         
-        op = Input.readChar("Digite a opcao desejada:\na - Cadastrar agencia\nb - Cadastrar cliente\nc - Cadastrar Conta\nd - Listar contas por agencia\ne "
+        op = Input.readChar("\nDigite a opcao desejada:\na - Cadastrar agencia\nb - Cadastrar cliente\nc - Cadastrar Conta\nd - Listar contas por agencia\ne "
                 + "- Listar contas por cliente\nf - Listar clientes por agencia\ng - Sair\n");
         while(op != 'g'){
             switch (op){
@@ -156,7 +175,7 @@ public class Banco {
                     System.out.println("Opcao invalida, tente novamente!\n");
                 break;
             }
-            op = Input.readChar("Digite a opcao desejada:\na - Cadastrar agencia\nb - Cadastrar cliente\nc - Cadastrar Conta\nd - Listar contas por agencia\ne "
+            op = Input.readChar("\nDigite a opcao desejada:\na - Cadastrar agencia\nb - Cadastrar cliente\nc - Cadastrar Conta\nd - Listar contas por agencia\ne "
                 + "- Listar contas por cliente\nf - Listar clientes por agencia\ng - Sair\n\n");
             System.out.println("__________________________________________________________________");
         
