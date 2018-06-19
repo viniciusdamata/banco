@@ -23,7 +23,7 @@ public class Banco {
             agenciaVet[indiceAgencia] = new agencia();
             agenciaVet[indiceAgencia].setEndereco();
             agenciaVet[indiceAgencia].setNumero();
-            System.out.println("Agencia Cadastrada! ");
+            System.out.println("\nAgencia Cadastrada! \n");
             agenciaVet[indiceAgencia].printAgencia();
             indiceAgencia++;
         }   
@@ -38,18 +38,16 @@ public class Banco {
             clienteVet[indiceCliente].setCpf();
             clienteVet[indiceCliente].setTelefone();
             clienteVet[indiceCliente].setCpfIndicou();
-            System.out.println("Cliente Cadastrado! ");
+            System.out.println("\nCliente Cadastrado! \n");
             clienteVet[indiceCliente].printCliente();
             indiceCliente++;
           }
      
     }
     public int verificaAgencia(int numAgencia){
-        if(indiceAgencia == 0){
-            return -1;
-        }
+        
         for (int i = 0; i < agenciaVet.length; i++) {
-            if(numAgencia == agenciaVet[i].getNumero()){
+            if(agenciaVet[i] != null && numAgencia == agenciaVet[i].getNumero()){
                 return i;
             }
             
@@ -58,11 +56,9 @@ public class Banco {
         return -1;
     }
     public int verificaCliente(int cpf){
-        if(indiceCliente == 0){
-            return -1;
-        }
+       
         for (int i = 0; i < clienteVet.length; i++) {
-            if(cpf == clienteVet[i].getCpf()){
+            if(clienteVet[i] != null && cpf == clienteVet[i].getCpf()){
                 return i;
             }
             
@@ -90,36 +86,41 @@ public class Banco {
         }
        
     }
+    public boolean verificaConta(conta conta){
+        if(conta != null){
+            return true;
+        }
+        else{
+            System.out.println("Nenhuma conta encontrada!");
+            return false;
+        }
+    }
     public void listarContaAgencia(int numAgencia){
-        if(indiceConta > 0){
+        
             for (int i = 0; i < contaVet.length; i++) {
-                if(contaVet[i].getAssociada().getNumero() == numAgencia){
+                if(verificaConta(contaVet[i])  && contaVet[i].getAssociada().getNumero() == numAgencia){
                    System.out.println("Nome do cliente: "+contaVet[i].getClienteConta().getNome());
                    System.out.println("Numero da conta; "+contaVet[i].getNumero());
                 }
             }
-        }else{
-            System.out.println("Nenhuma conta cadastrada! ");
-        }
+        
     }
     public void listarContaCliente(int cpf){
-        if(indiceConta > 0){
+        
             for (int i = 0; i < contaVet.length; i++) {
-                if(cpf == contaVet[i].getClienteConta().getCpf()){
+                if(verificaConta(contaVet[i]) && cpf == contaVet[i].getClienteConta().getCpf()){
                 System.out.println("Numero da agencia: "+contaVet[i].getAssociada().getNumero());
                 System.out.println("Numero da conta: "+contaVet[i].getNumero());
                 }
             }
-        }else{
-            System.out.println("Nenhuma conta cadastrada! ");
-        }
+      
         
     }
     public void listarClienteAgencia(int numAgencia){
-        if(indiceConta > 0){
+      
             for (int i = 0; i < contaVet.length; i++) {
                
-                if(numAgencia == contaVet[i].getAssociada().getNumero()){
+                if(verificaConta(contaVet[i]) && numAgencia == contaVet[i].getAssociada().getNumero()){
                     System.out.println("Nome do cliente: "+contaVet[i].getClienteConta().getNome());
                     System.out.println("Telefone do cliente: "+contaVet[i].getClienteConta().getTelefone());
                 }
@@ -127,9 +128,7 @@ public class Banco {
                 
             
             }
-        }else{
-            System.out.println("Nenhuma conta cadastrada! ");
-        }
+        
     
     }
     public static void main(String[] args) {
