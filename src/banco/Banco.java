@@ -49,7 +49,7 @@ public class Banco {
             return -1;
         }
         for (int i = 0; i < agenciaVet.length; i++) {
-            if(numAgencia == agenciaVet[i].getNumero() && agenciaVet[i] != null){
+            if(numAgencia == agenciaVet[i].getNumero()){
                 return i;
             }
             
@@ -62,7 +62,7 @@ public class Banco {
             return -1;
         }
         for (int i = 0; i < clienteVet.length; i++) {
-            if(cpf == clienteVet[i].getCpf() && clienteVet[i] != null){
+            if(cpf == clienteVet[i].getCpf()){
                 return i;
             }
             
