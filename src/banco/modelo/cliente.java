@@ -1,5 +1,5 @@
 
-package banco;
+package banco.modelo;
 
 
 public class cliente {

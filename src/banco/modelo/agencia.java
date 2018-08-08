@@ -1,4 +1,4 @@
-package banco;
+package banco.modelo;
 public class agencia {
     public int numero;
     public String endereco;
