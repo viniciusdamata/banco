@@ -1,6 +1,9 @@
     
 package banco;
 
+import banco.modelo.*;
+
+
 public class Banco {
     public agencia[] agenciaVet; 
     public cliente[] clienteVet; 
@@ -8,7 +11,7 @@ public class Banco {
     public int indiceConta = 0;
     public int indiceCliente = 0;
     public int indiceAgencia = 0;
-        
+    
     
     public Banco(int x, int y, int z){   
         agenciaVet = new agencia[x];
